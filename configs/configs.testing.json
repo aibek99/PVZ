@@ -1,0 +1,21 @@
+{
+  "Postgres": {
+    "Host": "localhost",
+    "Port": "5432",
+    "User": "test",
+    "Password": "test",
+    "DBName": "db_storage"
+  },
+  "Kafka": {
+    "Topic": "log_pool",
+    "Brokers": ["0.0.0.0:29092"]
+  },
+  "Redis": {
+    "Address": "localhost:6379",
+    "Password": ""
+  },
+  "InMemoryCache": {
+    "CleanTime": 12
+  },
+  "CacheType": "redis"
+}

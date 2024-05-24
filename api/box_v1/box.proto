@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option go_package = "Homework-1/pkg/api/box_v1;box_v1";
+
+import "abstract.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service BoxService{
+  rpc CreateBox(BoxCreateRequest) returns (MessageResponse){
+    option (google.api.http) = {
+      post: "/box_v1/create"
+      body: "*"
+    };
+  }
+  rpc DeleteBox(BoxIDRequest) returns (MessageResponse){
+    option (google.api.http) = {
+      delete: "/box_v1/delete/{boxID}"
+    };
+  }
+  rpc ListBoxes(Page) returns (BoxListResponse){
+    option (google.api.http) = {
+      post: "/box_v1/list"
+      body: "*"
+    };
+  }
+  rpc GetBoxByID(BoxIDRequest) returns (BoxAllInfo){
+    option (google.api.http) = {
+      get: "/box_v1/get/{boxID}"
+    };
+  }
+}
+
+message Box {
+  string name = 1;
+  double cost = 2;
+  bool isCheck = 3;
+  double weight = 4;
+}
+
+message BoxAllInfo{
+  int64 ID = 1;
+  Box box = 2;
+  google.protobuf.Timestamp createdAt = 3;
+  google.protobuf.Timestamp updatedAt = 4;
+}
+
+message BoxCreateRequest {
+  Box box = 1;
+}
+
+message BoxIDRequest {
+  int64 boxID = 1;
+}
+
+message BoxListResponse{
+  repeated BoxAllInfo boxAllInfo = 1;
+  Pagination pagination = 2;
+}

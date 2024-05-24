@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+option go_package = "Homework-1/pkg/api/order_v1;order_v1";
+
+import "abstract.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service OrderService {
+  rpc ReceiveOrder(OrderCreateRequest) returns (MessageResponse) {
+    option(google.api.http) = {
+      post: "/order_v1/receive"
+      body: "*"
+    };
+  }
+
+  rpc IssueOrder(IssueOrderRequest) returns (MessageResponse) {
+    option(google.api.http) = {
+      put: "/order_v1/issue"
+      body: "*"
+    };
+  }
+
+  rpc ReturnedOrders(Page) returns (ReturnedListResponse) {
+    option(google.api.http) = {
+      post: "/order_v1/returns"
+      body: "*"
+    };
+  }
+
+  rpc AcceptOrder(RequestWithClientID) returns (MessageResponse) {
+    option(google.api.http) = {
+      put: "/order_v1/accept"
+      body: "*"
+    };
+  }
+
+  rpc TurnInOrder(OrderIDRequest) returns (MessageResponse) {
+    option(google.api.http) = {
+      delete: "/order_v1/turn_in/{orderID}"
+    };
+  }
+
+  rpc OrderList(Page) returns (OrderListResponse) {
+    option(google.api.http) = {
+      post: "/order_v1/list"
+      body: "*"
+    };
+  }
+  rpc UniqueClientList(Page) returns (UniqueClientListResponse){
+    option(google.api.http) = {
+      post: "/order_v1/unique_clients"
+      body: "*"
+    };
+  }
+}
+
+message OrderAllInfo {
+  Order order = 1;
+  google.protobuf.Timestamp createdAt = 2;
+  google.protobuf.Timestamp updatedAt = 3;
+  google.protobuf.Timestamp acceptedAt = 4;
+  google.protobuf.Timestamp issuedAt = 5;
+  google.protobuf.Timestamp expiresAt = 6;
+}
+
+message ReturnedResponse {
+  int64 orderID = 1;
+  int64 clientID = 2;
+  google.protobuf.Timestamp returnedAt = 3;
+}
+
+message UniqueClientListResponse{
+  repeated int64 clientIDs = 1;
+  Pagination pagination = 2;
+}
+
+message ReturnedListResponse {
+  repeated ReturnedResponse returnedResponse = 1;
+  Pagination pagination = 2;
+}
+message OrderListResponse {
+  repeated OrderAllInfo orderAllInfo = 1;
+  Pagination pagination = 2;
+}
+
+message IssueOrderRequest {
+  repeated OrderIDRequest orderIDRequest = 1;
+}
+
+message RequestWithClientID {
+  int64 orderID = 1;
+  int64 clientID = 2;
+}
+
+message OrderIDRequest {
+  int64 orderID = 1;
+}
+
+message OrderCreateRequest {
+  Order order = 1;
+  int64 expireTimeDuration = 2;
+}
+
+message Order {
+  int64 orderID = 1;
+  int64 clientID = 2;
+  double weight = 3;
+  int64 boxID = 4;
+}

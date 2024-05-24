@@ -1,0 +1,36 @@
+{
+  "Server": {
+    "GRPCPort": ":50051",
+    "HTTPPort": ":9000",
+    "MetricsPort": ":9090"
+  },
+  "Postgres": {
+    "Host": "postgres",
+    "Port": "5432",
+    "User": "test",
+    "Password": "test",
+    "DBName": "storage"
+  },
+  "Auth":{
+    "AuthUser": "Homework_3",
+    "Password": "test"
+  },
+  "ShutdownTime": 5,
+  "TLS": {
+    "CertKeyPath": "./configs/server.crt",
+    "KeyPath":"./configs/server.key",
+    "CACrt": "./configs/ca.crt"
+  },
+  "Kafka": {
+    "Topic": "log_pool",
+    "Brokers": ["kafka:29092"]
+  },
+  "Redis": {
+    "Address": "redis:6379",
+    "Password": ""
+  },
+  "InMemoryCache": {
+    "CleanTime": 12
+  },
+  "CacheType": "redis"
+}

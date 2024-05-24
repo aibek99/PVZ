@@ -1,0 +1,27 @@
+[req]
+prompt = no
+distinguished_name = dn
+x509_extensions = v3_ca
+
+[dn]
+C=IT
+ST=Turin
+L=Turin
+O=Ozon
+OU=Backend
+CN=localhost
+emailAddress=aibek@gmail.com
+
+[v3_ca]
+basicConstraints = CA:TRUE
+keyUsage = keyCertSign, cRLSign
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1   = localhost
+DNS.2   = my_app
+IP.1    = 127.0.0.1

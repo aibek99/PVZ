@@ -1,0 +1,16 @@
+.idea
+.DS_Store
+order_Storage
+pvz_Storage
+.gitlab-ci.yml
+.golangci.yml
+Makefile
+
+internal/storage/order/mocks/
+internal/storage/order/storage.go
+
+configs/ca.crt
+configs/ca.srl
+configs/ca.key
+configs/server.key
+

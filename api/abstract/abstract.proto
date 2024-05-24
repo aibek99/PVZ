@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "Homework-1/pkg/api/abstract;abstract";
+
+message Page{
+  int64 currentPage = 1;
+  int64 itemsPerPage = 2;
+}
+
+message Pagination{
+  Page page = 1;
+  int64 totalItems = 2;
+}
+
+message MessageResponse {
+  string message = 1;
+}
+

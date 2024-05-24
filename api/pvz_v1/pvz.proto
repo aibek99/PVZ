@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option go_package = "Homework-1/pkg/api/pvz_v1;pvz_v1";
+
+import "abstract.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service PVZService{
+  rpc CreatePVZ(PVZCreateRequest) returns (MessageResponse){
+    option(google.api.http) = {
+      post: "/pvz_v1/create"
+      body: "*"
+    };
+  }
+
+  rpc GetPVZByID(PVZIDRequest) returns (PVZAllInfo) {
+    option(google.api.http) = {
+      post: "/pvz_v1/get/{pvzID}"
+    };
+  }
+
+  rpc ListPVZ(Page) returns (ListResponse) {
+    option (google.api.http) = {
+      post: "/pvz_v1/list"
+      body: "*"
+    };
+  }
+
+  rpc UpdatePVZ(UpdateRequest) returns (MessageResponse){
+    option(google.api.http) = {
+      put: "/pvz_v1/update"
+      body: "*"
+    };
+  }
+
+  rpc DeletePVZ(PVZIDRequest) returns (MessageResponse) {
+    option (google.api.http) = {
+      delete: "/pvz_v1/delete/{pvzID}"
+    };
+  }
+}
+
+message UpdateRequest {
+  int64 ID = 1;
+  PVZ pvz = 2;
+}
+
+message ListResponse {
+  repeated PVZAllInfo pvzAllInfo = 1;
+  Pagination pagination = 2;
+}
+
+message PVZCreateRequest {
+  PVZ pvz = 1;
+}
+
+message PVZIDRequest{
+  int64 pvzID = 1;
+}
+
+message PVZ {
+  string name = 1;
+  string address = 2;
+  string contact = 3;
+}
+
+message PVZAllInfo {
+  int64 ID = 1;
+  PVZ pvz = 2;
+  google.protobuf.Timestamp createdAt = 3;
+  google.protobuf.Timestamp updatedAt = 4;
+}
